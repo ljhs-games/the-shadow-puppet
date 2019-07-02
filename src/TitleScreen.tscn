@@ -1,11 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://PlayButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://focused-empty-button.tres" type="StyleBox" id=3]
-[ext_resource path="res://QuitButton.gd" type="Script" id=4]
+[ext_resource path="res://Rain and Thunder 01.WAV" type="AudioStream" id=1]
+[ext_resource path="res://TitleScreenAnimation.gd" type="Script" id=2]
+[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://PlayButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://focused-empty-button.tres" type="StyleBox" id=5]
+[ext_resource path="res://QuitButton.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "TitleScreenAnim"
+length = 15.0
+loop = true
+tracks/0/type = "audio"
+tracks/0/path = NodePath("TitleScreenAnimation/TitleScreenRain")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 1 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [node name="TitleScreen" type="Node2D"]
+
+[node name="TitleScreenAnimation" type="AnimationPlayer" parent="."]
+autoplay = "TitleScreenAnim"
+anims/TitleScreenAnim = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="TitleScreenRain" type="AudioStreamPlayer" parent="TitleScreenAnimation"]
+stream = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -18,15 +47,15 @@ margin_top = 22.0
 margin_right = 600.0
 margin_bottom = 70.0
 size_flags_vertical = 6
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 3 )
 text = "The Shadow Puppet"
 align = 1
 
-[node name="PlayButton" parent="CanvasLayer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="PlayButton" parent="CanvasLayer/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 96.0
 margin_bottom = 444.0
 
-[node name="CreditsButton" parent="CanvasLayer/VBoxContainer" instance=ExtResource( 2 )]
+[node name="CreditsButton" parent="CanvasLayer/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 448.0
 margin_bottom = 502.0
 size_flags_vertical = 1
@@ -38,9 +67,9 @@ margin_top = 506.0
 margin_right = 600.0
 margin_bottom = 600.0
 size_flags_vertical = 3
-custom_styles/focus = ExtResource( 3 )
-custom_fonts/font = ExtResource( 1 )
+custom_styles/focus = ExtResource( 5 )
+custom_fonts/font = ExtResource( 3 )
 text = "Quit"
 flat = true
-script = ExtResource( 4 )
+script = ExtResource( 6 )
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/QuitButton" to="CanvasLayer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
