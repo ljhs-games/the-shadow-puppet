@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://focused-empty-button.tres" type="StyleBox" id=1]
+[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=2]
+
+[node name="BasicButton" type="Button"]
+margin_top = 448.0
+margin_right = 600.0
+margin_bottom = 502.0
+custom_styles/focus = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Credits"
+flat = true
