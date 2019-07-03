@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Rain and Thunder 01.WAV" type="AudioStream" id=1]
+[ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
 [ext_resource path="res://TitleScreenAnimation.gd" type="Script" id=2]
 [ext_resource path="res://TitleScreenCanvasLayer.gd" type="Script" id=3]
 [ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=4]
