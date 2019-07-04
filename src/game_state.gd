@@ -1,7 +1,7 @@
 extends Node
 
 signal score_updated(new_score)
-var score setget set_score
+var score = 0 setget set_score
 
 func set_score(new_score):
 	if new_score != score:

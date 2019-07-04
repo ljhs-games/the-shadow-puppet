@@ -94,6 +94,8 @@ func _process(_delta):
 
 func set_health(new_health):
 	health = clamp(new_health, 0.0, 100.0)
+	if health <= 0.0:
+		get_node("/root/Game").gameover()
 	emit_signal("health_changed", health)
 
 func set_mech(new_mech):

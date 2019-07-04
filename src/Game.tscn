@@ -1,25 +1,83 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
-[ext_resource path="res://cross.png" type="Texture" id=2]
-[ext_resource path="res://HealthBar.gd" type="Script" id=3]
-[ext_resource path="res://gear.png" type="Texture" id=4]
-[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=5]
-[ext_resource path="res://ScoreLabel.gd" type="Script" id=6]
-[ext_resource path="res://Wooden_Tile.png" type="Texture" id=7]
-[ext_resource path="res://Roof.png" type="Texture" id=8]
-[ext_resource path="res://EnemySpawner.gd" type="Script" id=9]
-[ext_resource path="res://ShadowEnemy.tscn" type="PackedScene" id=10]
-[ext_resource path="res://ScrapSpawner.gd" type="Script" id=11]
-[ext_resource path="res://Scrap.tscn" type="PackedScene" id=12]
-[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=14]
-[ext_resource path="res://first-ghost.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://crash.wav" type="AudioStream" id=2]
+[ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=3]
+[ext_resource path="res://cross.png" type="Texture" id=4]
+[ext_resource path="res://HealthBar.gd" type="Script" id=5]
+[ext_resource path="res://gear.png" type="Texture" id=6]
+[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://ScoreLabel.gd" type="Script" id=8]
+[ext_resource path="res://Wooden_Tile.png" type="Texture" id=9]
+[ext_resource path="res://Roof.png" type="Texture" id=10]
+[ext_resource path="res://EnemySpawner.gd" type="Script" id=11]
+[ext_resource path="res://ShadowEnemy.tscn" type="PackedScene" id=12]
+[ext_resource path="res://ScrapSpawner.gd" type="Script" id=13]
+[ext_resource path="res://Scrap.tscn" type="PackedScene" id=14]
+[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=16]
+[ext_resource path="res://first-ghost.ogg" type="AudioStream" id=17]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Animation" id=2]
+resource_name = "Lose"
+length = 3.0
+tracks/0/type = "audio"
+tracks/0/path = NodePath("WeatherAnimation/LosePlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/LightningRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MainThemePlayer:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -80.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "onto_score_scene"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 15.0
 loop = true
 tracks/0/type = "value"
@@ -44,31 +102,32 @@ tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource( 1 )
+"stream": ExtResource( 3 )
 } ],
 "times": PoolRealArray( 0 )
 }
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.137255, 0.756863, 0.203922, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.196078, 0.0666667, 0.0666667, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.572549, 0.290196, 0.113725, 1 )
 
-[sub_resource type="SegmentShape2D" id=6]
+[sub_resource type="SegmentShape2D" id=7]
 b = Vector2( 600, 0 )
 
-[sub_resource type="SegmentShape2D" id=7]
+[sub_resource type="SegmentShape2D" id=8]
 b = Vector2( 0, 600 )
 
 [node name="Game" type="WorldEnvironment"]
 environment = SubResource( 1 )
+script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
+layer = 2
 
 [node name="LightningRect" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -76,15 +135,18 @@ anchor_bottom = 1.0
 margin_left = -790.0
 margin_top = -750.0
 margin_right = 1090.0
-color = Color( 0, 0, 0, 0 )
+color = Color( 1, 1, 1, 0 )
 
 [node name="WeatherAnimation" type="AnimationPlayer" parent="."]
-editor/display_folded = true
 autoplay = "ThunderAnimation"
-anims/ThunderAnimation = SubResource( 2 )
+anims/Lose = SubResource( 2 )
+anims/ThunderAnimation = SubResource( 3 )
 
 [node name="ThunderPlayer" type="AudioStreamPlayer" parent="WeatherAnimation"]
-stream = ExtResource( 1 )
+stream = ExtResource( 3 )
+
+[node name="LosePlayer" type="AudioStreamPlayer" parent="WeatherAnimation"]
+stream = ExtResource( 2 )
 
 [node name="SkyRect" type="ColorRect" parent="."]
 margin_left = -1080.0
@@ -126,7 +188,7 @@ size_flags_vertical = 0
 [node name="TextureRect" type="TextureRect" parent="GUI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 16.0
 margin_bottom = 16.0
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="HealthBar" type="ProgressBar" parent="GUI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 20.0
@@ -136,11 +198,11 @@ margin_bottom = 10.37
 rect_min_size = Vector2( 0, 5.37 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 4 )
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
 value = 54.58
 percent_visible = false
-script = ExtResource( 3 )
+script = ExtResource( 5 )
 player_path = NodePath("../../../../../../GangstaGhost")
 target_signal_name = "health_changed"
 target_variable_name = "health"
@@ -155,7 +217,7 @@ margin_bottom = 36.0
 modulate = Color( 0.917969, 0.578144, 0.365753, 1 )
 margin_right = 16.0
 margin_bottom = 16.0
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
 [node name="MechBar" type="ProgressBar" parent="GUI/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 20.0
@@ -165,11 +227,11 @@ margin_bottom = 10.37
 rect_min_size = Vector2( 0, 5.37 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 4 )
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 5 )
 value = 54.58
 percent_visible = false
-script = ExtResource( 3 )
+script = ExtResource( 5 )
 player_path = NodePath("../../../../../../GangstaGhost")
 target_signal_name = "mech_changed"
 target_variable_name = "mech"
@@ -186,11 +248,11 @@ margin_left = 478.0
 margin_right = 580.0
 margin_bottom = 48.0
 size_flags_vertical = 0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 autowrap = true
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 
 [node name="House" type="Node2D" parent="."]
 editor/display_folded = true
@@ -205,7 +267,7 @@ editor/display_folded = true
 position = Vector2( 0, -10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/Roof"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Floor" type="StaticBody2D" parent="House/Walls" groups=[
 "walls",
@@ -214,7 +276,7 @@ editor/display_folded = true
 position = Vector2( 0, 600 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/Floor"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="LeftWall" type="StaticBody2D" parent="House/Walls" groups=[
 "walls",
@@ -222,7 +284,7 @@ shape = SubResource( 6 )
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/LeftWall"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="RightWall" type="StaticBody2D" parent="House/Walls" groups=[
 "walls",
@@ -231,11 +293,11 @@ editor/display_folded = true
 position = Vector2( 600, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/RightWall"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="WoodenTile" type="Sprite" parent="House"]
 modulate = Color( 0.635294, 0.635294, 0.635294, 1 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 600, 600 )
@@ -243,22 +305,22 @@ region_rect = Rect2( 0, 0, 600, 600 )
 [node name="HouseRoof" type="Sprite" parent="House"]
 position = Vector2( 300, 0 )
 scale = Vector2( 1.2, 1 )
-texture = ExtResource( 8 )
+texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 500, 50 )
 
 [node name="EnemySpawner" type="Node2D" parent="."]
-script = ExtResource( 9 )
+script = ExtResource( 11 )
 dispenser_path = NodePath("../Dispenser")
 player_path = NodePath("../GangstaGhost")
-shadow_enemy_pack = ExtResource( 10 )
+shadow_enemy_pack = ExtResource( 12 )
 
 [node name="ScrapSpawner" type="Node2D" parent="."]
-script = ExtResource( 11 )
-scrap_scene = ExtResource( 12 )
+script = ExtResource( 13 )
+scrap_scene = ExtResource( 14 )
 spawn_extents = Vector2( 600, 300 )
 
-[node name="GangstaGhost" parent="." instance=ExtResource( 13 )]
+[node name="GangstaGhost" parent="." instance=ExtResource( 15 )]
 position = Vector2( 27.075, 40.6125 )
 
 [node name="Bullets" type="Node2D" parent="."]
@@ -266,11 +328,11 @@ position = Vector2( 27.075, 40.6125 )
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0, 0, 0, 1 )
 
-[node name="Dispenser" parent="." instance=ExtResource( 14 )]
+[node name="Dispenser" parent="." instance=ExtResource( 16 )]
 position = Vector2( 300, 570 )
 
-[node name="ShadowEnemy" parent="." instance=ExtResource( 10 )]
+[node name="ShadowEnemy" parent="." instance=ExtResource( 12 )]
 position = Vector2( 20, 100 )
 
 [node name="MainThemePlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 15 )
+stream = ExtResource( 17 )

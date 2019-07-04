@@ -37,4 +37,6 @@ func _input(event):
 
 func set_health(new_health):
 	health = clamp(new_health, 0.0, 100.0)
+	if health <= 0.0:
+		get_node("/root/Game").gameover()
 	$HealthBar.value = health
