@@ -1,16 +1,118 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Bullet.gd" type="Script" id=1]
 [ext_resource path="res://bullet.png" type="Texture" id=2]
 [ext_resource path="res://bullet-light.png" type="Texture" id=3]
 [ext_resource path="res://bullet-hit-wall.wav" type="AudioStream" id=4]
+[ext_resource path="res://bullet-hit-flesh.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 1.5 )
 
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.99696, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 0, 0.0303952, 1, 1, 1, 0 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "bullet-hit-flesh"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Light2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.01 ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 5 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CPUParticles2D:color_ramp")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1.23114 ),
+"update": 1,
+"values": [ SubResource( 4 ) ]
+}
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
 [sub_resource type="Animation" id=2]
 resource_name = "bullet-hit-wall"
 length = 2.0
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -87,8 +189,20 @@ tracks/5/keys = {
 "method": "queue_free"
 } ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("CPUParticles2D:color_ramp")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ SubResource( 6 ) ]
+}
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -167,31 +281,33 @@ tracks/5/keys = {
 } ]
 }
 
-[sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" groups=[
+"bullets",
+]]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 3 )
+energy = 0.723989
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
+anims/bullet-hit-flesh = SubResource( 5 )
 anims/bullet-hit-wall = SubResource( 2 )
-anims/idle = SubResource( 4 )
+anims/idle = SubResource( 3 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-emitting = false
 amount = 13
 lifetime = 0.6
 explosiveness = 1.0
@@ -205,5 +321,6 @@ radial_accel = 68.8
 radial_accel_random = 1.0
 damping = 77.0
 scale_amount = 3.2
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 6 )
+[connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]

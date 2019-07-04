@@ -21,3 +21,8 @@ func _on_Bullet_body_entered(body):
 func hit_wall():
 	set_process(false)
 	$AnimationPlayer.play("bullet-hit-wall")
+
+func _on_Bullet_area_entered(area):
+	if area.is_in_group("enemies"):
+		set_process(false)
+		$AnimationPlayer.play("bullet-hit-flesh")

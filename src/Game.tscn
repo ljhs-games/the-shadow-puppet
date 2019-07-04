@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cross.png" type="Texture" id=2]
@@ -7,10 +7,11 @@
 [ext_resource path="res://Wooden_Tile.png" type="Texture" id=5]
 [ext_resource path="res://Roof.png" type="Texture" id=6]
 [ext_resource path="res://EnemySpawner.gd" type="Script" id=7]
-[ext_resource path="res://ScrapSpawner.gd" type="Script" id=8]
-[ext_resource path="res://Scrap.tscn" type="PackedScene" id=9]
-[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=11]
+[ext_resource path="res://ShadowEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ScrapSpawner.gd" type="Script" id=9]
+[ext_resource path="res://Scrap.tscn" type="PackedScene" id=10]
+[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 1, 1, 1, 1 )
@@ -224,13 +225,15 @@ region_rect = Rect2( 0, 0, 500, 50 )
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 7 )
+dispenser_path = NodePath("../Dispenser")
+shadow_enemy_pack = ExtResource( 8 )
 
 [node name="ScrapSpawner" type="Node2D" parent="."]
-script = ExtResource( 8 )
-scrap_scene = ExtResource( 9 )
+script = ExtResource( 9 )
+scrap_scene = ExtResource( 10 )
 spawn_extents = Vector2( 600, 300 )
 
-[node name="GangstaGhost" parent="." instance=ExtResource( 10 )]
+[node name="GangstaGhost" parent="." instance=ExtResource( 11 )]
 position = Vector2( 27.075, 40.6125 )
 
 [node name="Bullets" type="Node2D" parent="."]
@@ -238,5 +241,10 @@ position = Vector2( 27.075, 40.6125 )
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0, 0, 0, 1 )
 
-[node name="Dispenser" parent="." instance=ExtResource( 11 )]
+[node name="Dispenser" parent="." instance=ExtResource( 12 )]
 position = Vector2( 300, 570 )
+
+[node name="ShadowEnemy" parent="." instance=ExtResource( 8 )]
+position = Vector2( 20, 100 )
+
+[node name="MainThemePlayer" type="AudioStreamPlayer" parent="."]

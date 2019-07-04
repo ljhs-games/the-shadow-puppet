@@ -87,7 +87,7 @@ func _input(event):
 #	elif event.is_action_pressed("g_fire"):
 #		fire()
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_pressed("g_fire"):
 		fire()
 

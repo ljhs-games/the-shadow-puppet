@@ -81,6 +81,10 @@ bullet_scene = ExtResource( 2 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
 mode = 2
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_gradient_length = 24.0
+shadow_filter = 1
+shadow_filter_smooth = 52.0
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.443137 )
