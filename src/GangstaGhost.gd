@@ -40,9 +40,6 @@ func bring_to_zero(in_val: float, amount: float) -> float:
 		return 0.0
 	return in_val - (amount*sign(in_val))
 
-#func get_direction_constant() -> int:
-#	return go_right + -go_left
-
 func get_direction_vector() -> Vector2:
 	return Vector2(go_right + -go_left, go_down + -go_up)
 
