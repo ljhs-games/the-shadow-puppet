@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GangstaGhost.gd" type="Script" id=1]
-[ext_resource path="res://player-light.png" type="Texture" id=2]
-[ext_resource path="res://Ghostie.png" type="Texture" id=3]
-[ext_resource path="res://gun-fire.wav" type="AudioStream" id=4]
-[ext_resource path="res://Gun.png" type="Texture" id=5]
+[ext_resource path="res://Bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player-light.png" type="Texture" id=3]
+[ext_resource path="res://Ghostie.png" type="Texture" id=4]
+[ext_resource path="res://gun-fire.wav" type="AudioStream" id=5]
+[ext_resource path="res://Gun.png" type="Texture" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.5155
@@ -64,22 +65,23 @@ tracks/2/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource( 4 )
+"stream": ExtResource( 5 )
 } ],
 "times": PoolRealArray( 0 )
 }
 
 [node name="GangstaGhost" type="KinematicBody2D"]
 script = ExtResource( 1 )
+bullet_scene = ExtResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 mode = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.443137 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1.02168 )
@@ -90,14 +92,15 @@ autoplay = "gun-bob"
 anims/gun-bob = SubResource( 2 )
 anims/gun-fire = SubResource( 3 )
 
-[node name="GunFireStream" type="AudioStreamPlayer2D" parent="AnimationPlayer"]
-stream = ExtResource( 4 )
+[node name="GunFireStream" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource( 5 )
+volume_db = -9.05
 
 [node name="Gun" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Gun"]
 position = Vector2( 9.89, 6.04 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 offset = Vector2( 4.14986, -4.64816 )
 
 [node name="Camera2D" type="Camera2D" parent="."]

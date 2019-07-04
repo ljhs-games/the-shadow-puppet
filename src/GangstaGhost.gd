@@ -9,6 +9,7 @@ export var max_velocity = 600.0
 export var move_accel = 350.0
 export var move_dampening = 150.0
 export var bounce_amount = 0.8
+export (PackedScene) var bullet_scene
 
 var accel = Vector2()
 var velocity = Vector2()
@@ -18,7 +19,6 @@ var go_up = 0
 var go_down = 0
 var health = 100.0 setget set_health
 var mech = 0.0 setget set_mech
-var able_to_fire = true
 
 func _ready():
 	move_accel += move_dampening
@@ -55,6 +55,13 @@ func fire():
 	if $AnimationPlayer.current_animation == "gun-bob":
 		$AnimationPlayer.play("gun-fire")
 		$AnimationPlayer.queue("gun-bob")
+		var target_position = get_viewport().get_mouse_position()
+		var local_position = $Gun/Sprite.get_global_transform_with_canvas().origin
+		var direction = (target_position - local_position).normalized()
+		var cur_bullet = bullet_scene.instance()
+		get_node("../Bullets").add_child(cur_bullet)
+		cur_bullet.global_position = $Gun/Sprite.global_position
+		cur_bullet.go(direction)
 
 func _input(event):
 	if event.is_action_pressed("g_right"):

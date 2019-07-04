@@ -47,13 +47,13 @@ bg_color = Color( 0.137255, 0.756863, 0.203922, 1 )
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.572549, 0.290196, 0.113725, 1 )
 
-[sub_resource type="SegmentShape2D" id=5]
+[sub_resource type="SegmentShape2D" id=6]
 b = Vector2( 600, 0 )
 
-[sub_resource type="SegmentShape2D" id=6]
+[sub_resource type="SegmentShape2D" id=7]
 b = Vector2( 0, 600 )
 
 [node name="Game" type="WorldEnvironment"]
@@ -152,7 +152,7 @@ margin_bottom = 10.37
 rect_min_size = Vector2( 0, 5.37 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
-custom_styles/fg = SubResource( 7 )
+custom_styles/fg = SubResource( 5 )
 custom_styles/bg = SubResource( 4 )
 value = 54.58
 percent_visible = false
@@ -165,32 +165,40 @@ target_variable_name = "mech"
 
 [node name="Walls" type="Node2D" parent="House"]
 
-[node name="Roof" type="StaticBody2D" parent="House/Walls"]
+[node name="Roof" type="StaticBody2D" parent="House/Walls" groups=[
+"walls",
+]]
 editor/display_folded = true
 position = Vector2( 0, -10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/Roof"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
-[node name="Floor" type="StaticBody2D" parent="House/Walls"]
+[node name="Floor" type="StaticBody2D" parent="House/Walls" groups=[
+"walls",
+]]
 editor/display_folded = true
 position = Vector2( 0, 600 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/Floor"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
-[node name="LeftWall" type="StaticBody2D" parent="House/Walls"]
+[node name="LeftWall" type="StaticBody2D" parent="House/Walls" groups=[
+"walls",
+]]
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/LeftWall"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
-[node name="RightWall" type="StaticBody2D" parent="House/Walls"]
+[node name="RightWall" type="StaticBody2D" parent="House/Walls" groups=[
+"walls",
+]]
 editor/display_folded = true
 position = Vector2( 600, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="House/Walls/RightWall"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="WoodenTile" type="Sprite" parent="House"]
 modulate = Color( 0.635294, 0.635294, 0.635294, 1 )
@@ -208,6 +216,8 @@ region_rect = Rect2( 0, 0, 500, 50 )
 
 [node name="GangstaGhost" parent="." instance=ExtResource( 7 )]
 position = Vector2( 27.075, 40.6125 )
+
+[node name="Bullets" type="Node2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0, 0, 0, 1 )
