@@ -1,5 +1,10 @@
 extends KinematicBody2D
 
+class_name gangsta_ghost
+
+signal health_changed(new_health)
+signal mech_changed(new_mech)
+
 export var max_velocity = 600.0
 export var move_accel = 350.0
 export var move_dampening = 150.0
@@ -11,6 +16,8 @@ var go_right = 0
 var go_left = 0
 var go_up = 0
 var go_down = 0
+var health = 100.0 setget set_health
+var mech = 0.0 setget set_mech
 
 func _ready():
 	move_accel += move_dampening
@@ -64,3 +71,11 @@ func _input(event):
 		go_down = 1
 	elif event.is_action_released("g_down"):
 		go_down = 0
+
+func set_health(new_health):
+	health = clamp(new_health, 0.0, 100.0)
+	emit_signal("health_changed", health)
+
+func set_mech(new_mech):
+	mech = clamp(new_mech, 0.0, 100.0)
+	emit_signal("mech_changed", mech)
