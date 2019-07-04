@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cross.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scrap.tscn" type="PackedScene" id=10]
 [ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Dispenser.tscn" type="PackedScene" id=12]
+[ext_resource path="res://first-ghost.ogg" type="AudioStream" id=13]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 1, 1, 1, 1 )
@@ -248,3 +249,4 @@ position = Vector2( 300, 570 )
 position = Vector2( 20, 100 )
 
 [node name="MainThemePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )

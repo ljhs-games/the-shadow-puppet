@@ -13,6 +13,7 @@ var cur_counter = 0.0
 func _ready():
 	set_process(false)
 	yield(get_tree().create_timer(5.0), "timeout")
+	get_node("../MainThemePlayer").play()
 	set_process(true)
 
 func _process(delta):
@@ -28,4 +29,4 @@ func spawn_guy():
 	cur_enemy.dispenser_coordinates = dispenser_node.global_position
 	cur_enemy.global_position.x = randi()%2 * 600.0
 	cur_enemy.global_position.y = rand_range(0, 500.0)
-	print("spawning!")
+#	print("spawning!")
