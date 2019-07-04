@@ -170,7 +170,6 @@ target_signal_name = "mech_changed"
 target_variable_name = "mech"
 
 [node name="House" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Walls" type="Node2D" parent="House"]
 editor/display_folded = true
@@ -227,6 +226,7 @@ region_rect = Rect2( 0, 0, 500, 50 )
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 7 )
 dispenser_path = NodePath("../Dispenser")
+player_path = NodePath("../GangstaGhost")
 shadow_enemy_pack = ExtResource( 8 )
 
 [node name="ScrapSpawner" type="Node2D" parent="."]
