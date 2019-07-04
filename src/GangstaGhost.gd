@@ -17,7 +17,7 @@ var go_right = 0
 var go_left = 0
 var go_up = 0
 var go_down = 0
-var health = 100.0 setget set_health
+var health = 50.0 setget set_health
 var mech = 0.0 setget set_mech
 
 func _ready():
