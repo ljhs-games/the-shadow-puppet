@@ -1,18 +1,20 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cross.png" type="Texture" id=2]
 [ext_resource path="res://HealthBar.gd" type="Script" id=3]
 [ext_resource path="res://gear.png" type="Texture" id=4]
-[ext_resource path="res://Wooden_Tile.png" type="Texture" id=5]
-[ext_resource path="res://Roof.png" type="Texture" id=6]
-[ext_resource path="res://EnemySpawner.gd" type="Script" id=7]
-[ext_resource path="res://ShadowEnemy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://ScrapSpawner.gd" type="Script" id=9]
-[ext_resource path="res://Scrap.tscn" type="PackedScene" id=10]
-[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=12]
-[ext_resource path="res://first-ghost.ogg" type="AudioStream" id=13]
+[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://ScoreLabel.gd" type="Script" id=6]
+[ext_resource path="res://Wooden_Tile.png" type="Texture" id=7]
+[ext_resource path="res://Roof.png" type="Texture" id=8]
+[ext_resource path="res://EnemySpawner.gd" type="Script" id=9]
+[ext_resource path="res://ShadowEnemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ScrapSpawner.gd" type="Script" id=11]
+[ext_resource path="res://Scrap.tscn" type="PackedScene" id=12]
+[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=14]
+[ext_resource path="res://first-ghost.ogg" type="AudioStream" id=15]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 1, 1, 1, 1 )
@@ -66,6 +68,7 @@ b = Vector2( 0, 600 )
 environment = SubResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="LightningRect" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -91,7 +94,6 @@ margin_bottom = 600.0
 color = Color( 0.0666667, 0.0823529, 0.152941, 1 )
 
 [node name="GUI" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
 anchor_right = 1.0
@@ -102,6 +104,7 @@ custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/MarginContainer"]
+editor/display_folded = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 590.0
@@ -115,6 +118,7 @@ margin_right = 280.0
 margin_bottom = 580.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/MarginContainer/MarginContainer/VBoxContainer"]
+editor/display_folded = true
 margin_right = 280.0
 margin_bottom = 16.0
 size_flags_vertical = 0
@@ -142,6 +146,7 @@ target_signal_name = "health_changed"
 target_variable_name = "health"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="GUI/MarginContainer/MarginContainer/VBoxContainer"]
+editor/display_folded = true
 margin_top = 20.0
 margin_right = 280.0
 margin_bottom = 36.0
@@ -169,7 +174,26 @@ player_path = NodePath("../../../../../../GangstaGhost")
 target_signal_name = "mech_changed"
 target_variable_name = "mech"
 
+[node name="MarginContainer2" type="MarginContainer" parent="GUI/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 590.0
+margin_bottom = 590.0
+custom_constants/margin_left = 478
+
+[node name="ScoreLabel" type="Label" parent="GUI/MarginContainer/MarginContainer2"]
+margin_left = 478.0
+margin_right = 580.0
+margin_bottom = 48.0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 5 )
+text = "0"
+align = 2
+autowrap = true
+script = ExtResource( 6 )
+
 [node name="House" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Walls" type="Node2D" parent="House"]
 editor/display_folded = true
@@ -211,7 +235,7 @@ shape = SubResource( 7 )
 
 [node name="WoodenTile" type="Sprite" parent="House"]
 modulate = Color( 0.635294, 0.635294, 0.635294, 1 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 600, 600 )
@@ -219,22 +243,22 @@ region_rect = Rect2( 0, 0, 600, 600 )
 [node name="HouseRoof" type="Sprite" parent="House"]
 position = Vector2( 300, 0 )
 scale = Vector2( 1.2, 1 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 500, 50 )
 
 [node name="EnemySpawner" type="Node2D" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 9 )
 dispenser_path = NodePath("../Dispenser")
 player_path = NodePath("../GangstaGhost")
-shadow_enemy_pack = ExtResource( 8 )
+shadow_enemy_pack = ExtResource( 10 )
 
 [node name="ScrapSpawner" type="Node2D" parent="."]
-script = ExtResource( 9 )
-scrap_scene = ExtResource( 10 )
+script = ExtResource( 11 )
+scrap_scene = ExtResource( 12 )
 spawn_extents = Vector2( 600, 300 )
 
-[node name="GangstaGhost" parent="." instance=ExtResource( 11 )]
+[node name="GangstaGhost" parent="." instance=ExtResource( 13 )]
 position = Vector2( 27.075, 40.6125 )
 
 [node name="Bullets" type="Node2D" parent="."]
@@ -242,11 +266,11 @@ position = Vector2( 27.075, 40.6125 )
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0, 0, 0, 1 )
 
-[node name="Dispenser" parent="." instance=ExtResource( 12 )]
+[node name="Dispenser" parent="." instance=ExtResource( 14 )]
 position = Vector2( 300, 570 )
 
-[node name="ShadowEnemy" parent="." instance=ExtResource( 8 )]
+[node name="ShadowEnemy" parent="." instance=ExtResource( 10 )]
 position = Vector2( 20, 100 )
 
 [node name="MainThemePlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 15 )

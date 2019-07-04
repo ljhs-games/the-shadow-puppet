@@ -24,6 +24,10 @@ config/name="The Shadow Puppet"
 run/main_scene="res://TitleScreen.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameState="*res://game_state.gd"
+
 [display]
 
 window/size/width=600

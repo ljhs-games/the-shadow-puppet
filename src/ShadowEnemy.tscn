@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ShadowEnemy.gd" type="Script" id=1]
 [ext_resource path="res://bullet-hit-flesh.wav" type="AudioStream" id=2]
@@ -68,6 +68,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="OccluderPolygon2D" id=4]
+polygon = PoolVector2Array( -10.9881, -18.012, -11.0757, -24.008, -9.98151, -23.9205, -9.98431, -26.0037, -7.9972, -26.0037, -7.9972, -26.9972, -6.03038, -26.9972, -6.03038, -27.9705, -3.02944, -27.9705, -2.98889, -27.0378, 1.00559, -26.9972, 1.02587, -26.0037, 1.97887, -26.0037, 2.01942, -25.0101, 2.95214, -25.0101, 2.9927, -24.0571, 3.96597, -24.0368, 4.00653, -23.0635, 5.02035, -23.023, 5.02035, -22.0903, 5.97335, -21.9889, 5.98963, -18.136, 5.00782, -18.008, 4.96513, -17.0475, 3.96197, -17.0262, 3.98332, -16.0443, 1.99835, -16.023, 1.99835, -15.0198, 0.0347233, -15.0198, 0.0133791, -13.9953, -5.0024, -13.974, -5.02375, -14.9985, -7.96919, -15.0198, -7.99053, -16.0017, -9.03638, -16.023, -9.01503, -17.0048, -9.9755, -17.0048, -9.9755, -18.0293 )
+
 [node name="ShadowEnemy" type="Area2D" groups=[
 "enemies",
 ]]
@@ -93,6 +96,9 @@ anims/idle = SubResource( 3 )
 [node name="DyingBreathPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 bus = "Reverb"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 4 )
 [connection signal="area_entered" from="." to="." method="_on_ShadowEnemy_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_ShadowEnemy_area_exited"]
 [connection signal="body_entered" from="." to="." method="_on_ShadowEnemy_body_entered"]

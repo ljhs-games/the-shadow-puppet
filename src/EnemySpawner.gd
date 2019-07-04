@@ -14,7 +14,7 @@ var cur_counter = 0.0
 
 func _ready():
 	set_process(false)
-	yield(get_tree().create_timer(5.0), "timeout")
+	yield(get_tree().create_timer(10.0), "timeout")
 	get_node("../MainThemePlayer").play()
 	set_process(true)
 

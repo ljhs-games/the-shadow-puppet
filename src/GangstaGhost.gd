@@ -52,9 +52,10 @@ func get_direction_vector() -> Vector2:
 	return Vector2(go_right + -go_left, go_down + -go_up)
 
 func fire():
-	if $AnimationPlayer.current_animation == "gun-bob":
+	if $AnimationPlayer.current_animation == "gun-bob" and mech > 0:
 		$AnimationPlayer.play("gun-fire")
 		$AnimationPlayer.queue("gun-bob")
+		self.mech -= 0.5
 		var target_position = get_viewport().get_mouse_position()
 		var local_position = $Gun/Sprite.get_global_transform_with_canvas().origin
 		var direction = (target_position - local_position).normalized()
