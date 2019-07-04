@@ -83,6 +83,7 @@ margin_right = 1090.0
 color = Color( 0, 0, 0, 0 )
 
 [node name="GUI" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
 anchor_right = 1.0
@@ -207,3 +208,6 @@ region_rect = Rect2( 0, 0, 500, 50 )
 
 [node name="GangstaGhost" parent="." instance=ExtResource( 7 )]
 position = Vector2( 27.075, 40.6125 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
