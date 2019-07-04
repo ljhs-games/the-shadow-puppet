@@ -18,6 +18,7 @@ var go_up = 0
 var go_down = 0
 var health = 100.0 setget set_health
 var mech = 0.0 setget set_mech
+var able_to_fire = true
 
 func _ready():
 	move_accel += move_dampening
@@ -50,6 +51,11 @@ func bring_to_zero(in_val: float, amount: float) -> float:
 func get_direction_vector() -> Vector2:
 	return Vector2(go_right + -go_left, go_down + -go_up)
 
+func fire():
+	if $AnimationPlayer.current_animation == "gun-bob":
+		$AnimationPlayer.play("gun-fire")
+		$AnimationPlayer.queue("gun-bob")
+
 func _input(event):
 	if event.is_action_pressed("g_right"):
 		go_right = 1
@@ -71,6 +77,8 @@ func _input(event):
 		go_down = 1
 	elif event.is_action_released("g_down"):
 		go_down = 0
+	elif event.is_action_pressed("g_fire"):
+		fire()
 
 func set_health(new_health):
 	health = clamp(new_health, 0.0, 100.0)
