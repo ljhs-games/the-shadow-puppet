@@ -2,8 +2,8 @@
 
 set -e
 
-GAME_EXECUTABLE_NAME="naval-battle"
-MAC_APP_FOLDERNAME="Naval Battle.app"
+GAME_EXECUTABLE_NAME="the-shadow-puppet"
+MAC_APP_FOLDERNAME="The Shadow Puppet.app"
 EDITOR_SETTINGS_PATH="$(readlink -f ~/.config/godot/editor_settings-3.tres)" # so can fix clearing settings on export
 PLATFORMS=( linux mac windows )
 
@@ -95,10 +95,10 @@ export_game() {
 	if [ "$1" == "mac" ]; then
 		cd "$EXPORT_FOLDER"
 		unzip "$GAME_NAME"
-		butler push "$MAC_APP_FOLDERNAME" "ljhsgames/naval-battle:$1" --userversion "$GAME_VERSION"
+		butler push "$MAC_APP_FOLDERNAME" "ljhsgames/the-shadow-puppet:$1" --userversion "$GAME_VERSION"
 	else
 		echo
-		butler push "$EXPORT_FOLDER" "ljhsgames/naval-battle:$1" --userversion "$GAME_VERSION"
+		butler push "$EXPORT_FOLDER" "ljhsgames/the-shadow-puppet:$1" --userversion "$GAME_VERSION"
 	fi
 
 	echo "Replacing editor settings ..."
