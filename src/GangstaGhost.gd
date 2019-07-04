@@ -84,7 +84,11 @@ func _input(event):
 		go_down = 1
 	elif event.is_action_released("g_down"):
 		go_down = 0
-	elif event.is_action_pressed("g_fire"):
+#	elif event.is_action_pressed("g_fire"):
+#		fire()
+
+func _process(delta):
+	if Input.is_action_pressed("g_fire"):
 		fire()
 
 func set_health(new_health):
@@ -92,5 +96,9 @@ func set_health(new_health):
 	emit_signal("health_changed", health)
 
 func set_mech(new_mech):
+	if new_mech > mech and new_mech < 100.0:
+		$ClangStreamPlayer.pitch_scale = rand_range(0.95, 1.05)
+		$ClangStreamPlayer.playing = true
 	mech = clamp(new_mech, 0.0, 100.0)
+	$AnimationPlayer.playback_speed = (mech/100.0)*2.0 + 1.0
 	emit_signal("mech_changed", mech)

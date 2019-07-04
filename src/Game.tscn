@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cross.png" type="Texture" id=2]
@@ -6,9 +6,11 @@
 [ext_resource path="res://gear.png" type="Texture" id=4]
 [ext_resource path="res://Wooden_Tile.png" type="Texture" id=5]
 [ext_resource path="res://Roof.png" type="Texture" id=6]
-[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=7]
-[ext_resource path="res://EnemySpawner.gd" type="Script" id=8]
-[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=9]
+[ext_resource path="res://EnemySpawner.gd" type="Script" id=7]
+[ext_resource path="res://ScrapSpawner.gd" type="Script" id=8]
+[ext_resource path="res://Scrap.tscn" type="PackedScene" id=9]
+[ext_resource path="res://GangstaGhost.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Dispenser.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Environment" id=1]
 ambient_light_color = Color( 1, 1, 1, 1 )
@@ -87,6 +89,7 @@ margin_bottom = 600.0
 color = Color( 0.0666667, 0.0823529, 0.152941, 1 )
 
 [node name="GUI" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
 anchor_right = 1.0
@@ -219,7 +222,15 @@ texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 500, 50 )
 
-[node name="GangstaGhost" parent="." instance=ExtResource( 7 )]
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="ScrapSpawner" type="Node2D" parent="."]
+script = ExtResource( 8 )
+scrap_scene = ExtResource( 9 )
+spawn_extents = Vector2( 600, 300 )
+
+[node name="GangstaGhost" parent="." instance=ExtResource( 10 )]
 position = Vector2( 27.075, 40.6125 )
 
 [node name="Bullets" type="Node2D" parent="."]
@@ -227,8 +238,5 @@ position = Vector2( 27.075, 40.6125 )
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0, 0, 0, 1 )
 
-[node name="EnemySpawner" type="Node2D" parent="."]
-script = ExtResource( 8 )
-
-[node name="Dispenser" parent="." instance=ExtResource( 9 )]
+[node name="Dispenser" parent="." instance=ExtResource( 11 )]
 position = Vector2( 300, 570 )

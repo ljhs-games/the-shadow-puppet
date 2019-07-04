@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://GangstaGhost.gd" type="Script" id=1]
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Ghostie.png" type="Texture" id=4]
 [ext_resource path="res://gun-fire.wav" type="AudioStream" id=5]
 [ext_resource path="res://Gun.png" type="Texture" id=6]
+[ext_resource path="res://mechanical-fix-noise.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.5155
@@ -108,3 +109,7 @@ offset = Vector2( 4.14986, -4.64816 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
+
+[node name="ClangStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -4.84
