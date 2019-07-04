@@ -151,7 +151,7 @@ color = Color( 0, 0, 0, 1 )
 [node name="MainMenu" type="VBoxContainer" parent="TitleScreenCanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 0.0012207
+margin_bottom = 0.000976562
 
 [node name="TitleScreenLabel" type="Label" parent="TitleScreenCanvasLayer/MainMenu"]
 margin_top = 96.0
@@ -213,7 +213,7 @@ Toby - Developer"
 align = 1
 autowrap = true
 
-[node name="BasicButton" parent="TitleScreenCanvasLayer/CreditScreen" instance=ExtResource( 7 )]
+[node name="BackButton" parent="TitleScreenCanvasLayer/CreditScreen" instance=ExtResource( 7 )]
 margin_top = 546.0
 margin_right = 599.0
 margin_bottom = 600.0
@@ -222,10 +222,11 @@ text = "Back"
 [node name="FadeRect" type="ColorRect" parent="TitleScreenCanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0, 0, 0, 0 )
 [connection signal="pressed" from="TitleScreenCanvasLayer/MainMenu/PlayButton" to="TitleScreenCanvasLayer" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="TitleScreenCanvasLayer/MainMenu/CreditsButton" to="TitleScreenCanvasLayer" method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="TitleScreenCanvasLayer/MainMenu/QuitButton" to="TitleScreenCanvasLayer/MainMenu/QuitButton" method="_on_QuitButton_pressed"]
-[connection signal="pressed" from="TitleScreenCanvasLayer/CreditScreen/BasicButton" to="TitleScreenCanvasLayer" method="_on_BasicButton_pressed"]
+[connection signal="pressed" from="TitleScreenCanvasLayer/CreditScreen/BackButton" to="TitleScreenCanvasLayer" method="_on_BasicButton_pressed"]

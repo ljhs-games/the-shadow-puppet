@@ -1,3 +1,6 @@
+# Exported files
+exports/*
+!exports/.gitkeep
 
 # Godot-specific ignores
 .import/
