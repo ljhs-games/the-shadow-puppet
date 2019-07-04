@@ -1,49 +1,70 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=1]
+[ext_resource path="res://ThunderAnimation.tres" type="Animation" id=1]
 [ext_resource path="res://TitleScreenAnimation.gd" type="Script" id=2]
-[ext_resource path="res://fur-elise.ogg" type="AudioStream" id=3]
-[ext_resource path="res://TitleScreenCanvasLayer.gd" type="Script" id=4]
-[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=5]
-[ext_resource path="res://PlayButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://rain-and-thunder.ogg" type="AudioStream" id=3]
+[ext_resource path="res://fur-elise.ogg" type="AudioStream" id=4]
+[ext_resource path="res://TitleScreenCanvasLayer.gd" type="Script" id=5]
+[ext_resource path="res://title-screen-font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://BasicButton.tscn" type="PackedScene" id=7]
 [ext_resource path="res://focused-empty-button.tres" type="StyleBox" id=8]
 [ext_resource path="res://QuitButton.gd" type="Script" id=9]
 
 [sub_resource type="Animation" id=1]
-resource_name = "GotoCredits"
-
-[sub_resource type="Animation" id=2]
-length = 15.0
-loop = true
-tracks/0/type = "audio"
-tracks/0/path = NodePath("TitleScreenAnimation/TitleScreenRain")
+resource_name = "FadeOut"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("TitleScreenCanvasLayer/FadeRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 1 )
-} ],
-"times": PoolRealArray( 0 )
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TitleScreenCanvasLayer/LightningRect:color")
+tracks/1/path = NodePath("TitleScreenAnimation/TitleScreenRain:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 9.1, 9.3, 9.6, 10.6, 11.5, 11.9, 12.4 ),
-"transitions": PoolRealArray( 1, 5.09824, 5.09824, 5.27803, 6.06286, 5.09824, 5.09824, 5.09824 ),
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0.392157, 0.392157, 0.392157, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+"values": [ 0.0, -80.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TitleScreenAnimation/TitleScreenFurElise:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -8.46, -80.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("TitleScreenCanvasLayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "goto_game_scene"
+} ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "ToCredits"
 length = 0.4
 tracks/0/type = "value"
@@ -71,7 +92,7 @@ tracks/1/keys = {
 "values": [ Vector2( 600, 0 ), Vector2( 600, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "ToTitleScreen"
 length = 0.4
 tracks/0/type = "value"
@@ -103,24 +124,24 @@ tracks/1/keys = {
 
 [node name="TitleScreenAnimation" type="AnimationPlayer" parent="."]
 autoplay = "TitleScreenAnim"
-anims/GotoCredits = SubResource( 1 )
-anims/TitleScreenAnim = SubResource( 2 )
+anims/FadeOut = SubResource( 1 )
+anims/TitleScreenAnim = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="TitleScreenRain" type="AudioStreamPlayer" parent="TitleScreenAnimation"]
-stream = ExtResource( 1 )
+stream = ExtResource( 3 )
 
 [node name="TitleScreenFurElise" type="AudioStreamPlayer" parent="TitleScreenAnimation"]
-stream = ExtResource( 3 )
+stream = ExtResource( 4 )
 volume_db = -8.46
 autoplay = true
 
 [node name="TitleScreenCanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="CreditsSwitcher" type="AnimationPlayer" parent="TitleScreenCanvasLayer"]
-anims/ToCredits = SubResource( 3 )
-anims/ToTitleScreen = SubResource( 4 )
+anims/ToCredits = SubResource( 2 )
+anims/ToTitleScreen = SubResource( 3 )
 
 [node name="LightningRect" type="ColorRect" parent="TitleScreenCanvasLayer"]
 anchor_right = 1.0
@@ -133,27 +154,30 @@ anchor_bottom = 1.0
 margin_bottom = 0.0012207
 
 [node name="TitleScreenLabel" type="Label" parent="TitleScreenCanvasLayer/MainMenu"]
-margin_top = 22.0
+margin_top = 96.0
 margin_right = 600.0
-margin_bottom = 70.0
+margin_bottom = 144.0
 size_flags_vertical = 6
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "The Shadow Puppet"
 align = 1
 
-[node name="PlayButton" parent="TitleScreenCanvasLayer/MainMenu" instance=ExtResource( 6 )]
-margin_top = 96.0
-margin_bottom = 444.0
+[node name="PlayButton" parent="TitleScreenCanvasLayer/MainMenu" instance=ExtResource( 7 )]
+margin_top = 244.0
+margin_bottom = 298.0
+text = "Play"
 
 [node name="CreditsButton" parent="TitleScreenCanvasLayer/MainMenu" instance=ExtResource( 7 )]
+margin_top = 302.0
+margin_bottom = 356.0
 
 [node name="QuitButton" type="Button" parent="TitleScreenCanvasLayer/MainMenu"]
-margin_top = 506.0
+margin_top = 360.0
 margin_right = 600.0
 margin_bottom = 600.0
 size_flags_vertical = 3
 custom_styles/focus = ExtResource( 8 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "Quit"
 flat = true
 script = ExtResource( 9 )
@@ -171,7 +195,7 @@ margin_top = 85.0
 margin_right = 599.0
 margin_bottom = 184.0
 size_flags_vertical = 6
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "Credits
 "
 align = 1
@@ -182,7 +206,7 @@ margin_right = 599.0
 margin_bottom = 542.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 text = "Creikey - Lead Developer, Music/Sound lead
 Lin - Artist
 Toby - Developer"
@@ -194,6 +218,14 @@ margin_top = 546.0
 margin_right = 599.0
 margin_bottom = 600.0
 text = "Back"
+
+[node name="FadeRect" type="ColorRect" parent="TitleScreenCanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0, 0, 0, 0 )
+[connection signal="pressed" from="TitleScreenCanvasLayer/MainMenu/PlayButton" to="TitleScreenCanvasLayer" method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="TitleScreenCanvasLayer/MainMenu/CreditsButton" to="TitleScreenCanvasLayer" method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="TitleScreenCanvasLayer/MainMenu/QuitButton" to="TitleScreenCanvasLayer/MainMenu/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="TitleScreenCanvasLayer/CreditScreen/BasicButton" to="TitleScreenCanvasLayer" method="_on_BasicButton_pressed"]
